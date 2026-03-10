@@ -1,9 +1,11 @@
 streamlit
 pandas
-opencv-python-headless
+opencv-python
 yt-dlp
 numpy
-requests
+opencv-python-headless
 ultralytics
+yt-dlp
+requests
 folium
 streamlit-folium
