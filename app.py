@@ -98,6 +98,12 @@ if st.button("🔍  Scan Video & Locate Fair"):
             lat, lon = predict_location(objects)
 
         month = row["Month"] if pd.notna(row["Month"]) else "N/A"
+        
+        # Handle case where no location is found
+        if lat is None or lon is None:
+            st.error("📍 Unable to determine location from detected objects. The video may not contain enough location-specific features.")
+            st.stop()
+            
         st.session_state["results"] = {
             "objects": objects,
             "lat": lat,

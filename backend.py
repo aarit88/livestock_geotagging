@@ -90,17 +90,30 @@ def query_osm(feature):
 def predict_location(objects):
     candidates = []
 
-    if "truck" in objects or "cow" in objects:
+    # More comprehensive object-to-location mapping
+    if "cow" in objects or "horse" in objects or "sheep" in objects:
+        candidates += query_osm("farm")
         candidates += query_osm("marketplace")
+    
+    if "truck" in objects:
+        candidates += query_osm("marketplace")
+        candidates += query_osm("parking")
 
     if "building" in objects:
         candidates += query_osm("place_of_worship")
+        candidates += query_osm("building")
 
     if "tower" in objects:
         candidates += query_osm("tower")
+        candidates += query_osm("communication_tower")
 
+    if "person" in objects:
+        candidates += query_osm("residential")
+        candidates += query_osm("marketplace")
+
+    # If no candidates found, return None instead of hardcoded coordinates
     if len(candidates) == 0:
-        return 15.3173, 75.7139
+        return None, None
 
     lat = np.mean([c[0] for c in candidates])
     lon = np.mean([c[1] for c in candidates])

@@ -3,6 +3,7 @@ pandas
 yt-dlp
 numpy
 opencv-python-headless
+opencv-python
 ultralytics
 requests
 folium
