@@ -71,7 +71,7 @@ st.markdown("""
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # ── Load data ──
-df = pd.read_csv("cattle_fairs.csv")
+df = pd.read_csv("cattle_fairs.csv", quotechar='"', skipinitialspace=True)
 
 # ── Fair selector ──
 st.markdown('<div class="glass-card"><h3>📋 Select a Livestock Fair</h3>', unsafe_allow_html=True)
@@ -192,5 +192,51 @@ if "results" in st.session_state:
         st.markdown('<div class="map-container">', unsafe_allow_html=True)
         st_folium(m, height=420, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # ── Satellite/Street View Links ──
+        st.markdown('<div class="glass-card"><h3>🛰️ Satellite & Street View</h3>', unsafe_allow_html=True)
+        
+        # Create satellite and street view links
+        satellite_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{res['lat']:.6f}!3d{res['lon']:.6f}!2m1!1e0"
+        street_view_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},18z/data=!3m1!1e3"
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"""
+            <div style="text-align: center; padding: 10px;">
+                <a href="{satellite_link}" target="_blank" style="
+                    display: inline-block;
+                    padding: 12px 24px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                ">
+                    🛰️ Open Satellite View
+                </a>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown(f"""
+            <div style="text-align: center; padding: 10px;">
+                <a href="{street_view_link}" target="_blank" style="
+                    display: inline-block;
+                    padding: 12px 24px;
+                    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                ">
+                    🚶 Open Street View
+                </a>
+            </div>
+            """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
