@@ -71,7 +71,7 @@ st.markdown("""
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # ── Load data ──
-df = pd.read_csv("cattle_fairs.csv")
+df = pd.read_csv("cattle_fairs.csv", quotechar='"', skipinitialspace=True)
 
 # ── Fair selector ──
 st.markdown('<div class="glass-card"><h3>📋 Select a Livestock Fair</h3>', unsafe_allow_html=True)
