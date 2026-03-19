@@ -38,10 +38,11 @@ with st.sidebar:
 
     st.markdown("""
     **How it works:**
-    1. Select a livestock fair from the list
-    2. Preview the video feed
-    3. Click **Scan** to run AI detection
-    4. View geotagged location on the map
+    1. Select a livestock fair from list
+    2. Choose a video if multiple are available
+    3. Preview the video feed
+    4. Click **Scan** to run AI detection
+    5. View geotagged location on map
     """)
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
@@ -71,31 +72,63 @@ st.markdown("""
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # ── Load data ──
-df = pd.read_csv("cattle_fairs.csv", quotechar='"', skipinitialspace=True)
+try:
+    df = pd.read_csv("cattle_fairs.csv", quotechar='"', skipinitialspace=True)
+    # Clean the data - ensure fair names are strings and not URLs
+    df['Name or Place'] = df['Name or Place'].astype(str)
+    # Remove any rows where Name or Place looks like a URL
+    df = df[~df['Name or Place'].str.contains('http', na=False)]
+except Exception as e:
+    st.error(f"Error loading data: {e}")
+    st.stop()
 
 # ── Fair selector ──
-st.markdown('<div class="glass-card"><h3>📋 Select a Livestock Fair</h3>', unsafe_allow_html=True)
-fair = st.selectbox("Choose a fair to analyze", df["Name or Place"], label_visibility="collapsed")
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('<div class="glass-card"><h3>📋 Select a Livestock Fair</h3></div>', unsafe_allow_html=True)
 
-row = df[df["Name or Place"] == fair].iloc[0]
-video = row["Video link 1"]
+# Get clean fair names list
+fair_names = df["Name or Place"].dropna().unique().tolist()
+# Sort alphabetically for better UX
+fair_names = sorted(fair_names)
+
+fair = st.selectbox("Choose a fair to analyze", fair_names, label_visibility="collapsed")
+
+# Get selected fair data
+try:
+    row = df[df["Name or Place"] == fair].iloc[0]
+    video1 = str(row["Video link 1"]).strip() if pd.notna(row["Video link 1"]) else ""
+    video2 = str(row["Video link 2"]).strip() if pd.notna(row["Video link 2"]) else ""
+except Exception as e:
+    st.error(f"Error finding fair data: {e}")
+    st.stop()
+
+# ── Video selector ──
+available_videos = []
+if video1 and (video1.startswith('http') or video1.startswith('https')):
+    available_videos.append(("Video 1", video1))
+if video2 and (video2.startswith('http') or video2.startswith('https')):
+    available_videos.append(("Video 2", video2))
+
+if available_videos:
+    st.markdown('<div class="glass-card"><h3>🎬 Select Video</h3></div>', unsafe_allow_html=True)
+    video_label = st.selectbox("Choose video to analyze", [v[0] for v in available_videos], label_visibility="collapsed")
+    video = next(v[1] for v in available_videos if v[0] == video_label)
+else:
+    video = None
 
 # ── Video preview ──
-if pd.notna(video) and video:
-    st.markdown('<div class="glass-card"><h3>🎬 Video Preview</h3>', unsafe_allow_html=True)
+if video:
+    st.markdown('<div class="glass-card"><h3>🎬 Video Preview</h3></div>', unsafe_allow_html=True)
     st.video(video)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # ── Scan button ──
 if st.button("🔍  Scan Video & Locate Fair"):
-    if pd.notna(video) and video:
+    if video:
         with st.spinner("🧠 Analyzing video with YOLOv8..."):
             download_video(video)
             objects = scan_video()
-            lat, lon = predict_location(objects)
+            lat, lon, landmarks = predict_location(objects)
 
         month = row["Month"] if pd.notna(row["Month"]) else "N/A"
         
@@ -108,6 +141,7 @@ if st.button("🔍  Scan Video & Locate Fair"):
             "objects": objects,
             "lat": lat,
             "lon": lon,
+            "landmarks": landmarks,
             "fair": fair,
             "month": month,
         }
@@ -124,18 +158,27 @@ if "results" in st.session_state:
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # ── Detected objects ──
-    st.markdown('<div class="glass-card"><h3>🔎 Detected Objects</h3>', unsafe_allow_html=True)
-    pills_html = '<div class="pill-container">'
+    pills_html = '<div class="glass-card"><h3>🔎 Detected Objects</h3>'
+    pills_html += '<div class="pill-container">'
     for obj in res["objects"]:
         pills_html += f'<span class="pill">{obj}</span>'
-    pills_html += '</div>'
+    pills_html += '</div></div>'
     st.markdown(pills_html, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
     # ── Coordinates + Map ──
     col_left, col_right = st.columns([1, 2])
 
     with col_left:
+        # Format landmarks HTML
+        landmarks_html = ""
+        if res.get('landmarks'):
+            landmarks_html = "<ul style='margin-top: 5px; color:#e6edf3; font-size:0.9rem; padding-left: 20px;'>"
+            for lm in res['landmarks']:
+                landmarks_html += f"<li>{lm['name']} ({lm['type']})</li>"
+            landmarks_html += "</ul>"
+        else:
+            landmarks_html = "<span style='color:#e6edf3; font-size:0.9rem; display: block; margin-top: 5px;'>No nearby landmarks found.</span>"
+
         st.markdown(f"""
         <div class="glass-card">
             <h3>📍 Predicted Location</h3>
@@ -156,11 +199,15 @@ if "results" in st.session_state:
             <p style="color:#8b9dc3; font-size:0.85rem; margin-top:0.8rem;">
                 📌 Fair: <strong style="color:#e6edf3;">{res['fair']}</strong>
             </p>
+            <div style="margin-top: 1.2rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Proof of Location (Landmarks):</h4>
+                {landmarks_html}
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
     with col_right:
-        st.markdown('<div class="glass-card"><h3>🗺️ Geolocation Map</h3>', unsafe_allow_html=True)
+        st.markdown('<div class="glass-card"><h3>🗺️ Geolocation Map</h3></div>', unsafe_allow_html=True)
 
         # Dark themed folium map
         m = folium.Map(
@@ -189,54 +236,56 @@ if "results" in st.session_state:
             weight=1,
         ).add_to(m)
 
-        st.markdown('<div class="map-container">', unsafe_allow_html=True)
-        st_folium(m, height=420, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Add landmarks to the map
+        for lm in res.get('landmarks', []):
+            folium.Marker(
+                [lm['lat'], lm['lon']],
+                popup=folium.Popup(
+                    f"<b>{lm['name']}</b><br>Type: {lm['type']}",
+                    max_width=250,
+                ),
+                icon=folium.Icon(color="green", icon="info-sign"),
+                tooltip=lm['name']
+            ).add_to(m)
 
-        st.markdown('</div>', unsafe_allow_html=True)
+        st_folium(m, height=420, use_container_width=True)
 
         # ── Satellite/Street View Links ──
-        st.markdown('<div class="glass-card"><h3>🛰️ Satellite & Street View</h3>', unsafe_allow_html=True)
-        
-        # Create satellite and street view links
         satellite_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{res['lat']:.6f}!3d{res['lon']:.6f}!2m1!1e0"
         street_view_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},18z/data=!3m1!1e3"
         
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown(f"""
-            <div style="text-align: center; padding: 10px;">
-                <a href="{satellite_link}" target="_blank" style="
-                    display: inline-block;
-                    padding: 12px 24px;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    text-decoration: none;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    transition: all 0.3s ease;
-                ">
-                    🛰️ Open Satellite View
-                </a>
+        st.markdown(f"""
+        <div class="glass-card">
+            <h3>🛰️ Satellite & Street View</h3>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <div style="text-align: center; padding: 10px;">
+                    <a href="{satellite_link}" target="_blank" style="
+                        display: inline-block;
+                        padding: 12px 24px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 8px;
+                        font-weight: bold;
+                        transition: all 0.3s ease;
+                    ">
+                        🛰️ Open Satellite View
+                    </a>
+                </div>
+                <div style="text-align: center; padding: 10px;">
+                    <a href="{street_view_link}" target="_blank" style="
+                        display: inline-block;
+                        padding: 12px 24px;
+                        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 8px;
+                        font-weight: bold;
+                        transition: all 0.3s ease;
+                    ">
+                        🚶 Open Street View
+                    </a>
+                </div>
             </div>
-            """, unsafe_allow_html=True)
-        
-        with col2:
-            st.markdown(f"""
-            <div style="text-align: center; padding: 10px;">
-                <a href="{street_view_link}" target="_blank" style="
-                    display: inline-block;
-                    padding: 12px 24px;
-                    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                    color: white;
-                    text-decoration: none;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    transition: all 0.3s ease;
-                ">
-                    🚶 Open Street View
-                </a>
-            </div>
-            """, unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
