@@ -125,10 +125,13 @@ st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 # ── Scan button ──
 if st.button("🔍  Scan Video & Locate Fair"):
     if video:
+        base_lat = float(row["Lat"]) if pd.notna(row["Lat"]) else None
+        base_lon = float(row["Long"]) if pd.notna(row["Long"]) else None
+
         with st.spinner("🧠 Analyzing video with YOLOv8..."):
             download_video(video)
             objects = scan_video()
-            lat, lon, landmarks = predict_location(objects)
+            lat, lon, landmarks = predict_location(objects, base_lat, base_lon)
 
         month = row["Month"] if pd.notna(row["Month"]) else "N/A"
         

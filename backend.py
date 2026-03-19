@@ -64,13 +64,20 @@ def scan_video():
 # Query OpenStreetMap Overpass API
 # ----------------------------------
 
-def query_osm(feature):
-    query = f"""
-    [out:json];
-    area["name"="Karnataka"]->.searchArea;
-    node["amenity"="{feature}"](area.searchArea);
-    out center 10;
-    """
+def query_osm(feature, base_lat=None, base_lon=None):
+    if base_lat is not None and base_lon is not None:
+        query = f"""
+        [out:json];
+        node["amenity"="{feature}"](around:50000,{base_lat},{base_lon});
+        out center 10;
+        """
+    else:
+        query = f"""
+        [out:json];
+        area["name"="Karnataka"]->.searchArea;
+        node["amenity"="{feature}"](area.searchArea);
+        out center 10;
+        """
     url = "https://overpass-api.de/api/interpreter"
 
     try:
@@ -96,36 +103,42 @@ def query_osm(feature):
 # Predict location from detected objects
 # ----------------------------------
 
-def predict_location(objects):
+def predict_location(objects, base_lat=None, base_lon=None):
     candidates = []
 
     # More comprehensive object-to-location mapping
     if any(obj in objects for obj in ["cow", "horse", "sheep", "elephant", "dog", "bird"]):
-        candidates += query_osm("farm")
-        candidates += query_osm("marketplace")
+        candidates += query_osm("farm", base_lat, base_lon)
+        candidates += query_osm("marketplace", base_lat, base_lon)
     
     if any(obj in objects for obj in ["truck", "car", "bus", "motorcycle"]):
-        candidates += query_osm("marketplace")
-        candidates += query_osm("parking")
+        candidates += query_osm("marketplace", base_lat, base_lon)
+        candidates += query_osm("parking", base_lat, base_lon)
 
     if "building" in objects or "house" in objects:
-        candidates += query_osm("place_of_worship")
-        candidates += query_osm("building")
+        candidates += query_osm("place_of_worship", base_lat, base_lon)
+        candidates += query_osm("building", base_lat, base_lon)
 
     if "tower" in objects or "cell phone" in objects:
-        candidates += query_osm("tower")
-        candidates += query_osm("communication_tower")
+        candidates += query_osm("tower", base_lat, base_lon)
+        candidates += query_osm("communication_tower", base_lat, base_lon)
 
     if "person" in objects or "backpack" in objects or "umbrella" in objects:
-        candidates += query_osm("residential")
-        candidates += query_osm("marketplace")
+        candidates += query_osm("residential", base_lat, base_lon)
+        candidates += query_osm("marketplace", base_lat, base_lon)
 
-    # If no candidates found, return None instead of hardcoded coordinates
+    # If no candidates found, return base coordinates if available, else None
     if len(candidates) == 0:
+        if base_lat is not None and base_lon is not None:
+            return base_lat, base_lon, []
         return None, None, []
 
-    lat = np.mean([c["lat"] for c in candidates])
-    lon = np.mean([c["lon"] for c in candidates])
+    if base_lat is not None and base_lon is not None:
+        lat = base_lat
+        lon = base_lon
+    else:
+        lat = np.mean([c["lat"] for c in candidates])
+        lon = np.mean([c["lon"] for c in candidates])
 
     # Calculate distance to center for each candidate
     def calc_dist(c):
