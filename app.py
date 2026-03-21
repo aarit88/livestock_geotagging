@@ -129,11 +129,18 @@ if st.button("🔍  Scan Video & Locate Fair"):
         base_lon = float(row["Long"]) if pd.notna(row["Long"]) else None
 
         with st.spinner("🧠 Analyzing video with YOLOv8..."):
-            download_video(video)
+            video_info = download_video(video)
             objects = scan_video()
-            lat, lon, landmarks = predict_location(objects, base_lat, base_lon)
+            lat, lon, landmarks = predict_location(objects, base_lat, base_lon, fair_name=fair)
 
         month = row["Month"] if pd.notna(row["Month"]) else "N/A"
+        if isinstance(video_info, dict) and video_info.get("upload_date"):
+            try:
+                import datetime
+                date_obj = datetime.datetime.strptime(video_info["upload_date"], "%Y%m%d")
+                month = date_obj.strftime("%b")
+            except Exception:
+                pass
         
         # Handle case where no location is found
         if lat is None or lon is None:
@@ -231,7 +238,7 @@ if "results" in st.session_state:
         # Accuracy circle
         folium.Circle(
             location=[res["lat"], res["lon"]],
-            radius=20000,
+            radius=25000,
             color="#00d4ff",
             fill=True,
             fill_color="#00d4ff",
@@ -254,8 +261,8 @@ if "results" in st.session_state:
         st_folium(m, height=420, use_container_width=True)
 
         # ── Satellite/Street View Links ──
-        satellite_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{res['lat']:.6f}!3d{res['lon']:.6f}!2m1!1e0"
-        street_view_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},18z/data=!3m1!1e3"
+        satellite_link = f"https://www.google.com/maps/search/?api=1&query={res['lat']},{res['lon']}&basemap=satellite"
+        street_view_link = f"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={res['lat']},{res['lon']}"
         
         st.markdown(f"""
         <div class="glass-card">
