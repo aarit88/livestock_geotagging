@@ -262,7 +262,7 @@ if "results" in st.session_state:
 
         # ── Satellite/Street View Links ──
         satellite_link = f"https://www.google.com/maps/search/?api=1&query={res['lat']},{res['lon']}&basemap=satellite"
-        street_view_link = f"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={res['lat']},{res['lon']}"
+        street_view_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},18z/data=!3m1!1e3"
         
         st.markdown(f"""
         <div class="glass-card">
