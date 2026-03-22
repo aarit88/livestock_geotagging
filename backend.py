@@ -77,18 +77,18 @@ def scan_video():
 # Query OpenStreetMap Overpass API
 # ----------------------------------
 
-def query_osm(feature, base_lat=None, base_lon=None):
+def query_osm(feature, base_lat=None, base_lon=None, tag="amenity", radius=50000):
     if base_lat is not None and base_lon is not None:
         query = f"""
         [out:json];
-        node["amenity"="{feature}"](around:25000,{base_lat},{base_lon});
+        node["{tag}"="{feature}"](around:{radius},{base_lat},{base_lon});
         out center 30;
         """
     else:
         query = f"""
         [out:json];
         area["name"="Karnataka"]->.searchArea;
-        node["amenity"="{feature}"](area.searchArea);
+        node["{tag}"="{feature}"](area.searchArea);
         out center 30;
         """
     url = "https://overpass-api.de/api/interpreter"
@@ -140,7 +140,13 @@ def predict_location(objects, base_lat=None, base_lon=None, fair_name=""):
         candidates += query_osm("residential", base_lat, base_lon)
         candidates += query_osm("marketplace", base_lat, base_lon)
 
-    # If no candidates found, return base coordinates if available, else None
+    # If no specific amenities matched (common in extreme rural areas),
+    # fallback to identifying the absolute nearest village or town mapped.
+    if len(candidates) == 0:
+        candidates += query_osm("village", base_lat, base_lon, tag="place", radius=10000)
+        candidates += query_osm("town", base_lat, base_lon, tag="place", radius=25000)
+
+    # If STILL no candidates found despite rural fallbacks, return base coordinates if available
     if len(candidates) == 0:
         if base_lat is not None and base_lon is not None:
             return base_lat, base_lon, []
@@ -180,17 +186,17 @@ def predict_location(objects, base_lat=None, base_lon=None, fair_name=""):
                 "lon": c["lon"]
             })
 
-    # Pick top nearest candidates (e.g. 15) and randomly select 3 to ensure overlapping
-    # fairs yield different proof of locations.
-    top_candidates = unique_candidates[:15]
-    if len(top_candidates) >= 3:
-        landmarks = random.sample(top_candidates, 3)
-    else:
-        landmarks = top_candidates
+    # Pick top nearest candidates to ensure the proof of location 
+    # refers to landmarks directly in the vicinity of the coordinates.
+    landmarks = unique_candidates[:3]
 
-    # Keep latitude and longitude anchored to the precise given center 
-    # rather than jumping randomly to the centroid of the sampled landmarks.
-    final_lat = center_lat
-    final_lon = center_lon
+    # Set latitude and longitude to the first detected landmark's coordinates
+    # to ensure the coordinates point exactly to a localized proof of location.
+    if landmarks:
+        final_lat = landmarks[0]["lat"]
+        final_lon = landmarks[0]["lon"]
+    else:
+        final_lat = center_lat
+        final_lon = center_lon
 
     return final_lat, final_lon, landmarks

@@ -97,6 +97,9 @@ try:
     row = df[df["Name or Place"] == fair].iloc[0]
     video1 = str(row["Video link 1"]).strip() if pd.notna(row["Video link 1"]) else ""
     video2 = str(row["Video link 2"]).strip() if pd.notna(row["Video link 2"]) else ""
+    
+    proof_col = "Proof of location: Landmarks (Youtube video, Landmark, Timestamp, GPS or Google Street link)"
+    original_proof = str(row[proof_col]).strip() if proof_col in df.columns and pd.notna(row.get(proof_col)) else "No documented proof"
 except Exception as e:
     st.error(f"Error finding fair data: {e}")
     st.stop()
@@ -154,6 +157,9 @@ if st.button("🔍  Scan Video & Locate Fair"):
             "landmarks": landmarks,
             "fair": fair,
             "month": month,
+            "field_lat": base_lat,
+            "field_lon": base_lon,
+            "original_proof": original_proof,
         }
     else:
         st.warning("⚠️ No video link available for this fair.")
@@ -184,12 +190,23 @@ if "results" in st.session_state:
         if res.get('landmarks'):
             landmarks_html = "<ul style='margin-top: 5px; color:#e6edf3; font-size:0.9rem; padding-left: 20px;'>"
             for lm in res['landmarks']:
-                landmarks_html += f"<li>{lm['name']} ({lm['type']})</li>"
+                landmarks_html += f"<li>{lm['name']} ({lm['type']}) <br><span style='color:#b6c8d9; font-size:0.8rem;'>Lat: {lm['lat']:.6f}, Lon: {lm['lon']:.6f}</span></li>"
             landmarks_html += "</ul>"
         else:
             landmarks_html = "<span style='color:#e6edf3; font-size:0.9rem; display: block; margin-top: 5px;'>No nearby landmarks found.</span>"
 
-        st.markdown(f"""
+        field_location_html = ""
+        if res.get('field_lat') is not None and res.get('field_lon') is not None:
+            field_location_html = "".join(line.strip() for line in f"""
+            <div style="margin-top: 1.2rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Livestock Field Location:</h4>
+                <div style="color:#e6edf3; font-size: 0.9rem; margin-top: 5px;">
+                    <b>Lat:</b> {res['field_lat']:.6f} &nbsp;&nbsp;|&nbsp;&nbsp; <b>Lon:</b> {res['field_lon']:.6f}
+                </div>
+            </div>
+            """.split("\n"))
+
+        main_html = "".join(line.strip() for line in f"""
         <div class="glass-card">
             <h3>📍 Predicted Location</h3>
             <div class="metric-row" style="flex-direction: column;">
@@ -207,14 +224,17 @@ if "results" in st.session_state:
                 </div>
             </div>
             <p style="color:#8b9dc3; font-size:0.85rem; margin-top:0.8rem;">
-                📌 Fair: <strong style="color:#e6edf3;">{res['fair']}</strong>
+                📌 Fair: <strong style="color:#e6edf3;">{res['fair']}</strong><br/>
+                📌 Original Provided Proof: <strong style="color:#e6edf3;">{res.get('original_proof', 'None')}</strong>
             </p>
+            {field_location_html}
             <div style="margin-top: 1.2rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
                 <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Proof of Location (Landmarks):</h4>
                 {landmarks_html}
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """.split("\n"))
+        st.markdown(main_html, unsafe_allow_html=True)
 
     with col_right:
         st.markdown('<div class="glass-card"><h3>🗺️ Geolocation Map</h3></div>', unsafe_allow_html=True)
@@ -222,36 +242,38 @@ if "results" in st.session_state:
         # Dark themed folium map
         m = folium.Map(
             location=[res["lat"], res["lon"]],
-            zoom_start=8,
+            zoom_start=11,
             tiles="CartoDB dark_matter",
         )
 
-        folium.Marker(
-            [res["lat"], res["lon"]],
-            popup=folium.Popup(
-                f"<b>{res['fair']}</b><br>Lat: {res['lat']:.4f}<br>Lon: {res['lon']:.4f}",
-                max_width=250,
-            ),
-            icon=folium.Icon(color="blue", icon="map-marker", prefix="fa"),
-        ).add_to(m)
+        if res.get("field_lat") is not None and res.get("field_lon") is not None:
+            folium.Marker(
+                [res["field_lat"], res["field_lon"]],
+                popup=folium.Popup(
+                    f"<b>{res['fair']} (Field)</b><br>Lat: {res['field_lat']:.4f}<br>Lon: {res['field_lon']:.4f}",
+                    max_width=250,
+                ),
+                icon=folium.Icon(color="red", icon="flag", prefix="fa"),
+                tooltip="Livestock Field Location"
+            ).add_to(m)
 
-        # Accuracy circle
-        folium.Circle(
-            location=[res["lat"], res["lon"]],
-            radius=25000,
-            color="#00d4ff",
-            fill=True,
-            fill_color="#00d4ff",
-            fill_opacity=0.1,
-            weight=1,
-        ).add_to(m)
+            # Accuracy circle
+            folium.Circle(
+                location=[res["field_lat"], res["field_lon"]],
+                radius=25000,
+                color="#00d4ff",
+                fill=True,
+                fill_color="#00d4ff",
+                fill_opacity=0.1,
+                weight=1,
+            ).add_to(m)
 
         # Add landmarks to the map
         for lm in res.get('landmarks', []):
             folium.Marker(
                 [lm['lat'], lm['lon']],
                 popup=folium.Popup(
-                    f"<b>{lm['name']}</b><br>Type: {lm['type']}",
+                    f"<b>{lm['name']}</b><br>Type: {lm['type']}<br>Lat: {lm['lat']:.4f}<br>Lon: {lm['lon']:.4f}",
                     max_width=250,
                 ),
                 icon=folium.Icon(color="green", icon="info-sign"),
@@ -264,7 +286,7 @@ if "results" in st.session_state:
         satellite_link = f"https://www.google.com/maps/search/?api=1&query={res['lat']},{res['lon']}&basemap=satellite"
         street_view_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},18z/data=!3m1!1e3"
         
-        st.markdown(f"""
+        satellite_html = "".join(line.strip() for line in f"""
         <div class="glass-card">
             <h3>🛰️ Satellite & Street View</h3>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
@@ -298,4 +320,5 @@ if "results" in st.session_state:
                 </div>
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """.split("\n"))
+        st.markdown(satellite_html, unsafe_allow_html=True)

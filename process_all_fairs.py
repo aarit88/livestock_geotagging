@@ -34,17 +34,18 @@ def parse_csv_safely():
         if current:
             parts.append(current.strip('"'))
         
-        # Ensure we have exactly 6 parts
-        while len(parts) < 6:
+        # Ensure we have exactly 7 parts
+        while len(parts) < 7:
             parts.append('')
         
         fairs.append({
             'name': parts[0],
             'video1': parts[1],
             'video2': parts[2],
-            'lat_long': parts[3],
-            'month': parts[4],
-            'proof': parts[5]
+            'lat': parts[3],
+            'long': parts[4],
+            'month': parts[5],
+            'proof': parts[6]
         })
     
     return fairs
@@ -55,11 +56,6 @@ def process_fair(fair_info):
         fair_name = fair_info['name']
         video_url = fair_info['video1']
         
-        # Skip if already has coordinates or no video
-        if fair_info['lat_long'] and fair_info['lat_long'].strip():
-            print(f'⏭️  Skipping {fair_name} - already has coordinates')
-            return None
-            
         if not video_url or not video_url.strip():
             print(f'⚠️  Skipping {fair_name} - no video URL')
             return None
@@ -67,23 +63,36 @@ def process_fair(fair_info):
         print(f'\n🔄 Processing {fair_name}...')
         print(f'📹 Video: {video_url[:50]}...')
         
+        try:
+            base_lat = float(fair_info['lat']) if fair_info['lat'].strip() else None
+            base_lon = float(fair_info['long']) if fair_info['long'].strip() else None
+        except ValueError:
+            base_lat, base_lon = None, None
+
         # Process video
         download_video(video_url)
         objects = scan_video()
-        lat, lon = predict_location(objects)
+        lat, lon, landmarks = predict_location(objects, base_lat, base_lon, fair_name=fair_name)
         
         if lat is not None and lon is not None:
-            print(f'✅ Coordinates: {lat:.6f}, {lon:.6f}')
+            field_lat_str = fair_info['lat'].strip() if base_lat is not None else f"{lat:.6f}"
+            field_lon_str = fair_info['long'].strip() if base_lon is not None else f"{lon:.6f}"
+            
+            print(f'✅ Field Coordinates: {field_lat_str}, {field_lon_str}')
+            print(f'✅ Landmark Coordinates: {lat:.6f}, {lon:.6f}')
             print(f'🔍 Objects detected: {len(objects)} types')
             
-            # Create Google Maps satellite link
+            landmark_name = landmarks[0]['name'] if landmarks else "Unknown Landmark"
+            
+            # Create Google Maps satellite link for the landmark (proof of location)
             satellite_link = f"https://www.google.com/maps/@{lat:.6f},{lon:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{lat:.6f}!3d{lon:.6f}!2m1!1e0"
             
             return {
                 'name': fair_name,
-                'lat_long': f"{lat:.6f}, {lon:.6f}",
-                'month': 'Jan',  # Most Karnataka cattle fairs are in Jan
-                'proof': f"(Y1, Cattle fair location with landmarks, 0:30 ,{satellite_link})",
+                'lat': field_lat_str,
+                'long': field_lon_str,
+                'month': fair_info['month'] if fair_info['month'].strip() else 'Jan',
+                'proof': f"(Y1, {landmark_name} (Lat: {lat:.6f}, Lon: {lon:.6f}), 0:30 ,{satellite_link})",
                 'video1': video_url,
                 'video2': fair_info['video2'],
                 'objects': objects
@@ -110,7 +119,8 @@ def update_csv(results):
     for result in results:
         for fair in fairs:
             if fair['name'] == result['name']:
-                fair['lat_long'] = result['lat_long']
+                fair['lat'] = result['lat']
+                fair['long'] = result['long']
                 fair['month'] = result['month']
                 fair['proof'] = result['proof']
                 updated_count += 1
@@ -118,12 +128,12 @@ def update_csv(results):
     
     # Write updated CSV
     with open('cattle_fairs_updated.csv', 'w', encoding='utf-8') as f:
-        f.write('Name or Place,Video link 1,Video link 2,Lat/Long,Month,"Proof of location: Landmarks (Youtube video, Landmark, Timestamp, GPS or Google Street link)"\n')
+        f.write('Name or Place,Video link 1,Video link 2,Lat,Long,Month,"Proof of location: Landmarks (Youtube video, Landmark, Timestamp, GPS or Google Street link)"\n')
         
         for fair in fairs:
             # Quote the proof column properly
             proof = fair['proof'].replace('"', '""') if fair['proof'] else ''
-            line = f'{fair["name"]},{fair["video1"]},{fair["video2"]},{fair["lat_long"]},{fair["month"]},"{proof}"\n'
+            line = f'{fair["name"]},{fair["video1"]},{fair["video2"]},{fair["lat"]},{fair["long"]},{fair["month"]},"{proof}"\n'
             f.write(line)
     
     print(f"📝 Updated {updated_count} fairs in cattle_fairs_updated.csv")
@@ -136,8 +146,8 @@ def main():
     # Parse CSV
     fairs = parse_csv_safely()
     
-    # Filter fairs with video links but no coordinates
-    to_process = [f for f in fairs if f['video1'] and not f['lat_long']]
+    # Filter fairs to process all valid video links to update proof formats
+    to_process = [f for f in fairs if f['video1']]
     
     print(f"📊 Found {len(to_process)} fairs to process")
     print(f"🎯 Total fairs in dataset: {len(fairs)}")
@@ -181,7 +191,7 @@ def main():
         
         for result in results:
             f.write(f"FAIR: {result['name']}\n")
-            f.write(f"COORDINATES: {result['lat_long']}\n")
+            f.write(f"FIELD COORDINATES: {result['lat']}, {result['long']}\n")
             f.write(f"MONTH: {result['month']}\n")
             f.write(f"PROOF: {result['proof']}\n")
             f.write(f"OBJECTS DETECTED: {result['objects']}\n")
