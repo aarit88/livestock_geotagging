@@ -185,15 +185,15 @@ if "results" in st.session_state:
     col_left, col_right = st.columns([1, 2])
 
     with col_left:
-        # Format landmarks HTML
-        landmarks_html = ""
-        if res.get('landmarks'):
-            landmarks_html = "<ul style='margin-top: 5px; color:#e6edf3; font-size:0.9rem; padding-left: 20px;'>"
-            for lm in res['landmarks']:
-                landmarks_html += f"<li>{lm['name']} ({lm['type']}) <br><span style='color:#b6c8d9; font-size:0.8rem;'>Lat: {lm['lat']:.6f}, Lon: {lm['lon']:.6f}</span></li>"
-            landmarks_html += "</ul>"
+        # Format Proof of location to be from Detected Objects
+        proof_html = ""
+        if res.get('objects'):
+            proof_html = "<ul style='margin-top: 5px; color:#e6edf3; font-size:0.9rem; padding-left: 20px;'>"
+            for obj in res['objects']:
+                proof_html += f"<li>Detected: <b>{obj}</b> <br><span style='color:#b6c8d9; font-size:0.8rem;'>Lat: {res['lat']:.6f}, Lon: {res['lon']:.6f}</span></li>"
+            proof_html += "</ul>"
         else:
-            landmarks_html = "<span style='color:#e6edf3; font-size:0.9rem; display: block; margin-top: 5px;'>No nearby landmarks found.</span>"
+            proof_html = "<span style='color:#e6edf3; font-size:0.9rem; display: block; margin-top: 5px;'>No objects detected to serve as proof of location.</span>"
 
         field_location_html = ""
         if res.get('field_lat') is not None and res.get('field_lon') is not None:
@@ -229,8 +229,8 @@ if "results" in st.session_state:
             </p>
             {field_location_html}
             <div style="margin-top: 1.2rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
-                <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Proof of Location (Landmarks):</h4>
-                {landmarks_html}
+                <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Proof of Location (Detected Objects):</h4>
+                {proof_html}
             </div>
         </div>
         """.split("\n"))
@@ -268,17 +268,17 @@ if "results" in st.session_state:
                 weight=1,
             ).add_to(m)
 
-        # Add landmarks to the map
-        for lm in res.get('landmarks', []):
-            folium.Marker(
-                [lm['lat'], lm['lon']],
-                popup=folium.Popup(
-                    f"<b>{lm['name']}</b><br>Type: {lm['type']}<br>Lat: {lm['lat']:.4f}<br>Lon: {lm['lon']:.4f}",
-                    max_width=250,
-                ),
-                icon=folium.Icon(color="green", icon="info-sign"),
-                tooltip=lm['name']
-            ).add_to(m)
+        # Add Proof of Location (Detected Objects) to the map
+        proof_objs = ", ".join(res.get('objects', [])) if res.get('objects') else "No objects"
+        folium.Marker(
+            [res["lat"], res["lon"]],
+            popup=folium.Popup(
+                f"<b>Proof of Location</b><br>Detected: {proof_objs}<br>Lat: {res['lat']:.4f}<br>Lon: {res['lon']:.4f}",
+                max_width=250,
+            ),
+            icon=folium.Icon(color="green", icon="info-sign"),
+            tooltip=f"Proof: {proof_objs}"
+        ).add_to(m)
 
         st_folium(m, height=420, use_container_width=True)
 

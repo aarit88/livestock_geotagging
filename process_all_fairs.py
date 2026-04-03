@@ -82,7 +82,7 @@ def process_fair(fair_info):
             print(f'✅ Landmark Coordinates: {lat:.6f}, {lon:.6f}')
             print(f'🔍 Objects detected: {len(objects)} types')
             
-            landmark_name = landmarks[0]['name'] if landmarks else "Unknown Landmark"
+            object_names = ", ".join(objects) if objects else "No objects detected"
             
             # Create Google Maps satellite link for the landmark (proof of location)
             satellite_link = f"https://www.google.com/maps/@{lat:.6f},{lon:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{lat:.6f}!3d{lon:.6f}!2m1!1e0"
@@ -92,7 +92,7 @@ def process_fair(fair_info):
                 'lat': field_lat_str,
                 'long': field_lon_str,
                 'month': fair_info['month'] if fair_info['month'].strip() else 'Jan',
-                'proof': f"(Y1, {landmark_name} (Lat: {lat:.6f}, Lon: {lon:.6f}), 0:30 ,{satellite_link})",
+                'proof': f"(Y1, {object_names} (Lat: {lat:.6f}, Lon: {lon:.6f}), 0:30 ,{satellite_link})",
                 'video1': video_url,
                 'video2': fair_info['video2'],
                 'objects': objects

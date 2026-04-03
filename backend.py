@@ -140,13 +140,7 @@ def predict_location(objects, base_lat=None, base_lon=None, fair_name=""):
         candidates += query_osm("residential", base_lat, base_lon)
         candidates += query_osm("marketplace", base_lat, base_lon)
 
-    # If no specific amenities matched (common in extreme rural areas),
-    # fallback to identifying the absolute nearest village or town mapped.
-    if len(candidates) == 0:
-        candidates += query_osm("village", base_lat, base_lon, tag="place", radius=10000)
-        candidates += query_osm("town", base_lat, base_lon, tag="place", radius=25000)
-
-    # If STILL no candidates found despite rural fallbacks, return base coordinates if available
+    # If no candidates found from the explicitly detected objects, return base coordinates if available
     if len(candidates) == 0:
         if base_lat is not None and base_lon is not None:
             return base_lat, base_lon, []

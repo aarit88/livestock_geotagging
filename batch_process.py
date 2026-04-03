@@ -26,7 +26,7 @@ def process_fair(fair_name, video_url, base_lat=None, base_lon=None):
                 print(f'✅ Landmark Coordinates: {lat:.6f}, {lon:.6f}')
                 print(f'🔍 Objects: {objects}')
                 
-                landmark_name = landmarks[0]['name'] if landmarks else "Unknown Landmark"
+                object_names = ", ".join(objects) if objects else "No objects detected"
                 
                 # Create Google Maps satellite link
                 satellite_link = f"https://www.google.com/maps/@{lat:.6f},{lon:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{lat:.6f}!3d{lon:.6f}!2m1!1e0"
@@ -35,7 +35,7 @@ def process_fair(fair_name, video_url, base_lat=None, base_lon=None):
                     'name': fair_name,
                     'lat': f"Field: {field_lat_str}, {field_lon_str} | Landmark: {lat:.6f}, {lon:.6f}",
                     'month': 'Jan',  # Default to January for Karnataka cattle fairs
-                    'proof': f"(Y1, {landmark_name} (Lat: {lat:.6f}, Lon: {lon:.6f}), 0:30 ,{satellite_link})",
+                    'proof': f"(Y1, {object_names} (Lat: {lat:.6f}, Lon: {lon:.6f}), 0:30 ,{satellite_link})",
                     'objects': objects
                 }
             else:
