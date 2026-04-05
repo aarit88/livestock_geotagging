@@ -82,17 +82,44 @@ def process_fair(fair_info):
             print(f'✅ Landmark Coordinates: {lat:.6f}, {lon:.6f}')
             print(f'🔍 Objects detected: {len(objects)} types')
             
-            object_names = ", ".join(objects) if objects else "No objects detected"
+            # Generate a semantic description
+            livestock_map = {"cow": "cattle", "sheep": "sheep", "horse": "horses", "elephant": "elephants", "bird": "poultry"}
+            livestock_present = list(set([livestock_map[obj] for obj in objects if obj in livestock_map]))
+            other_objects = list(set([obj for obj in objects if obj not in livestock_map]))
+            
+            area = "Open field"
+            if landmarks:
+                lm_type = landmarks[0].get("type", "").lower().replace("_", " ")
+                if "farm" in lm_type: area = "Farm area"
+                elif "market" in lm_type: area = "Marketplace"
+                elif "build" in lm_type or "resident" in lm_type: area = "Populated area"
+                elif "place of worship" in lm_type: area = "Temple/Worship area"
+                elif "parking" in lm_type: area = "Parking area"
+                    
+            if livestock_present:
+                l_str = " and ".join(livestock_present[:2])
+                if "person" in other_objects:
+                    landmark_desc = f"{area} with {l_str} and people gathering"
+                else:
+                    landmark_desc = f"{area} with {l_str} gathering"
+            elif other_objects:
+                if "person" in other_objects:
+                    landmark_desc = f"{area} with people present"
+                else:
+                    o_str = ", ".join(other_objects[:2])
+                    landmark_desc = f"{area} with {o_str} present"
+            else:
+                landmark_desc = f"{area} representing the livestock fair location"
             
             # Create Google Maps satellite link for the landmark (proof of location)
-            satellite_link = f"https://www.google.com/maps/@{lat:.6f},{lon:.6f},847m/data=!3m1!1e3!4m6!1m2!2s{lat:.6f}!3d{lon:.6f}!2m1!1e0"
+            satellite_link = f"https://www.google.com/maps/@{lat:.6f},{lon:.6f},893m/data=!3m1!1e3!4m6!1m2!2s{lat:.6f}!3d{lon:.6f}!2m1!1e0"
             
             return {
                 'name': fair_name,
                 'lat': field_lat_str,
                 'long': field_lon_str,
                 'month': fair_info['month'] if fair_info['month'].strip() else 'Jan',
-                'proof': f"(Y1, {object_names} (Lat: {lat:.6f}, Lon: {lon:.6f}), 0:30 ,{satellite_link})",
+                'proof': f"(Y1, {landmark_desc}, 0:30 ,{satellite_link})",
                 'video1': video_url,
                 'video2': fair_info['video2'],
                 'objects': objects

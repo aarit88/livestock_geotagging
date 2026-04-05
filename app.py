@@ -185,15 +185,42 @@ if "results" in st.session_state:
     col_left, col_right = st.columns([1, 2])
 
     with col_left:
-        # Format Proof of location to be from Detected Objects
-        proof_html = ""
-        if res.get('objects'):
-            proof_html = "<ul style='margin-top: 5px; color:#e6edf3; font-size:0.9rem; padding-left: 20px;'>"
-            for obj in res['objects']:
-                proof_html += f"<li>Detected: <b>{obj}</b> <br><span style='color:#b6c8d9; font-size:0.8rem;'>Lat: {res['lat']:.6f}, Lon: {res['lon']:.6f}</span></li>"
-            proof_html += "</ul>"
+        # Calculate semantic proof of location for the UI
+        objects_ui = res.get('objects', [])
+        landmarks_ui = res.get('landmarks', [])
+        
+        livestock_map_ui = {"cow": "cattle", "sheep": "sheep", "horse": "horses", "elephant": "elephants", "bird": "poultry"}
+        livestock_present_ui = list(set([livestock_map_ui[obj] for obj in objects_ui if obj in livestock_map_ui]))
+        other_objects_ui = list(set([obj for obj in objects_ui if obj not in livestock_map_ui]))
+        
+        area_ui = "Open field"
+        if landmarks_ui:
+            lm_type = landmarks_ui[0].get("type", "").lower().replace("_", " ")
+            if "farm" in lm_type: area_ui = "Farm area"
+            elif "market" in lm_type: area_ui = "Marketplace"
+            elif "build" in lm_type or "resident" in lm_type: area_ui = "Populated area"
+            elif "place of worship" in lm_type: area_ui = "Temple/Worship area"
+            elif "parking" in lm_type: area_ui = "Parking area"
+                
+        if livestock_present_ui:
+            l_str = " and ".join(livestock_present_ui[:2])
+            if "person" in other_objects_ui:
+                desc_ui = f"{area_ui} with {l_str} and people gathering"
+            else:
+                desc_ui = f"{area_ui} with {l_str} gathering"
+        elif other_objects_ui:
+            if "person" in other_objects_ui:
+                desc_ui = f"{area_ui} with people present"
+            else:
+                o_str = ", ".join(other_objects_ui[:2])
+                desc_ui = f"{area_ui} with {o_str} present"
         else:
-            proof_html = "<span style='color:#e6edf3; font-size:0.9rem; display: block; margin-top: 5px;'>No objects detected to serve as proof of location.</span>"
+            desc_ui = f"{area_ui} representing the location"
+            
+        sat_link = f"https://www.google.com/maps/@{res['lat']:.6f},{res['lon']:.6f},893m/data=!3m1!1e3!4m6!1m2!2s{res['lat']:.6f}!3d{res['lon']:.6f}!2m1!1e0"
+        semantic_proof_str = f"(Y1, {desc_ui}, 0:30 ,{sat_link})"
+        
+        proof_html = f"<div style='margin-top: 8px; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 6px; border-left: 4px solid #4CAF50; font-family: monospace; font-size: 0.9rem; color: #aef359; word-wrap: break-word;'>{semantic_proof_str}</div>"
 
         field_location_html = ""
         if res.get('field_lat') is not None and res.get('field_lon') is not None:
@@ -229,7 +256,7 @@ if "results" in st.session_state:
             </p>
             {field_location_html}
             <div style="margin-top: 1.2rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
-                <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Proof of Location (Detected Objects):</h4>
+                <h4 style="color:#8b9dc3; font-size: 0.95rem; margin-bottom:0;">📌 Proof of Location:</h4>
                 {proof_html}
             </div>
         </div>
@@ -268,16 +295,46 @@ if "results" in st.session_state:
                 weight=1,
             ).add_to(m)
 
-        # Add Proof of Location (Detected Objects) to the map
-        proof_objs = ", ".join(res.get('objects', [])) if res.get('objects') else "No objects"
+        # Add Proof of Location (Semantic description) to the map
+        objects = res.get('objects', [])
+        landmarks = res.get('landmarks', [])
+        
+        livestock_map = {"cow": "cattle", "sheep": "sheep", "horse": "horses", "elephant": "elephants", "bird": "poultry"}
+        livestock_present = list(set([livestock_map[obj] for obj in objects if obj in livestock_map]))
+        other_objects = list(set([obj for obj in objects if obj not in livestock_map]))
+        
+        area = "Open field"
+        if landmarks:
+            lm_type = landmarks[0].get("type", "").lower().replace("_", " ")
+            if "farm" in lm_type: area = "Farm area"
+            elif "market" in lm_type: area = "Marketplace"
+            elif "build" in lm_type or "resident" in lm_type: area = "Populated area"
+            elif "place of worship" in lm_type: area = "Temple/Worship area"
+            elif "parking" in lm_type: area = "Parking area"
+                
+        if livestock_present:
+            l_str = " and ".join(livestock_present[:2])
+            if "person" in other_objects:
+                proof_desc = f"{area} with {l_str} and people gathering"
+            else:
+                proof_desc = f"{area} with {l_str} gathering"
+        elif other_objects:
+            if "person" in other_objects:
+                proof_desc = f"{area} with people present"
+            else:
+                o_str = ", ".join(other_objects[:2])
+                proof_desc = f"{area} with {o_str} present"
+        else:
+            proof_desc = f"{area} representing the location"
+            
         folium.Marker(
             [res["lat"], res["lon"]],
             popup=folium.Popup(
-                f"<b>Proof of Location</b><br>Detected: {proof_objs}<br>Lat: {res['lat']:.4f}<br>Lon: {res['lon']:.4f}",
+                f"<b>Proof of Location</b><br>Landmark: {proof_desc}<br>Lat: {res['lat']:.4f}<br>Lon: {res['lon']:.4f}",
                 max_width=250,
             ),
             icon=folium.Icon(color="green", icon="info-sign"),
-            tooltip=f"Proof: {proof_objs}"
+            tooltip=f"Proof: {proof_desc}"
         ).add_to(m)
 
         st_folium(m, height=420, use_container_width=True)

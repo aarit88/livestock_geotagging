@@ -1,30 +1,27 @@
-Aigali: Field: 13.139476, 76.962979 | Landmark: 13.310398, 76.943364
-Proof: (Y1, Monday Bazar (Lat: 13.310398, Lon: 76.943364), 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+Aigali: Field: 13.139476, 76.962979 | Landmark: 13.139476, 76.962979
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.139476, Lon: 76.962979), 0:30 ,https://www.google.com/maps/@13.139476,76.962979,847m/data=!3m1!1e3!4m6!1m2!2s13.139476!3d76.962979!2m1!1e0)
 ---
 Avani: Field: 13.106016, 77.058273 | Landmark: 13.106016, 77.058273
-Proof: (Y1, Unknown Landmark (Lat: 13.106016, Lon: 77.058273), 0:30 ,https://www.google.com/maps/@13.106016,77.058273,847m/data=!3m1!1e3!4m6!1m2!2s13.106016!3d77.058273!2m1!1e0)
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.106016, Lon: 77.058273), 0:30 ,https://www.google.com/maps/@13.106016,77.058273,847m/data=!3m1!1e3!4m6!1m2!2s13.106016!3d77.058273!2m1!1e0)
 ---
-Baby Betta: Field: 13.106016, 77.058273 | Landmark: 13.313069, 77.114760
-Proof: (Y1, Mini market (Lat: 13.313069, Lon: 77.114760), 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+Baby Betta: Field: 13.106016, 77.058273 | Landmark: 13.106016, 77.058273
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.106016, Lon: 77.058273), 0:30 ,https://www.google.com/maps/@13.106016,77.058273,847m/data=!3m1!1e3!4m6!1m2!2s13.106016!3d77.058273!2m1!1e0)
 ---
 Badami: Field: 15.913335, 75.685090 | Landmark: 15.913335, 75.685090
-Proof: (Y1, Unknown Landmark (Lat: 15.913335, Lon: 75.685090), 0:30 ,https://www.google.com/maps/@15.913335,75.685090,847m/data=!3m1!1e3!4m6!1m2!2s15.913335!3d75.685090!2m1!1e0)
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 15.913335, Lon: 75.685090), 0:30 ,https://www.google.com/maps/@15.913335,75.685090,847m/data=!3m1!1e3!4m6!1m2!2s15.913335!3d75.685090!2m1!1e0)
 ---
-Badavanahalli: Field: 13.106016, 77.058273 | Landmark: 13.313069, 77.114760
-Proof: (Y1, Mini market (Lat: 13.313069, Lon: 77.114760), 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+Badavanahalli: Field: 13.106016, 77.058273 | Landmark: 13.310961, 77.124645
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.310961, Lon: 77.124645), 0:30 ,https://www.google.com/maps/@13.310961,77.124645,847m/data=!3m1!1e3!4m6!1m2!2s13.310961!3d77.124645!2m1!1e0)
 ---
-Bagalkote: Field: 13.139476, 76.962979 | Landmark: 13.321420, 76.939077
-Proof: (Y1, Unnamed Parking (Lat: 13.321420, Lon: 76.939077), 0:30 ,https://www.google.com/maps/@13.321420,76.939077,847m/data=!3m1!1e3!4m6!1m2!2s13.321420!3d76.939077!2m1!1e0)
+Bagalkote: Field: 13.139476, 76.962979 | Landmark: 13.310398, 76.943364
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.310398, Lon: 76.943364), 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
 ---
 Bairisiddeswara cattle fair: Field: 13.106016, 77.058273 | Landmark: 13.313069, 77.114760
-Proof: (Y1, Mini market (Lat: 13.313069, Lon: 77.114760), 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.313069, Lon: 77.114760), 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
 ---
-Banashankari fair: Field: 13.072557, 77.153568 | Landmark: 13.072557, 77.153568
-Proof: (Y1, Unknown Landmark (Lat: 13.072557, Lon: 77.153568), 0:30 ,https://www.google.com/maps/@13.072557,77.153568,847m/data=!3m1!1e3!4m6!1m2!2s13.072557!3d77.153568!2m1!1e0)
+Banashankari fair: Field: 13.072557, 77.153568 | Landmark: 13.313069, 77.114760
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.313069, Lon: 77.114760), 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
 ---
-Bankapura: Field: 13.094863, 77.090038 | Landmark: 13.313069, 77.114760
-Proof: (Y1, Mini market (Lat: 13.313069, Lon: 77.114760), 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
----
-Bannur Hemadri: Field: 12.930113, 77.584443 | Landmark: 12.930113, 77.584443
-Proof: (Y1, Fruit, Flower and Vegetable vendors (Lat: 12.930113, Lon: 77.584443), 0:30 ,https://www.google.com/maps/@12.930113,77.584443,847m/data=!3m1!1e3!4m6!1m2!2s12.930113!3d77.584443!2m1!1e0)
+Bankapura: Field: 13.094863, 77.090038 | Landmark: 13.094863, 77.090038
+Proof: (Y1, horse, bus, motorcycle, car, boat, sheep, sports ball, umbrella, person, backpack, truck, cow (Lat: 13.094863, Lon: 77.090038), 0:30 ,https://www.google.com/maps/@13.094863,77.090038,847m/data=!3m1!1e3!4m6!1m2!2s13.094863!3d77.090038!2m1!1e0)
 ---

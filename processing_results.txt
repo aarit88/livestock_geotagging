@@ -1,0 +1,325 @@
+CATTLE FAIRS PROCESSING RESULTS
+==================================================
+
+FAIR: Aigali
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Avani
+FIELD COORDINATES: 13.106016, 77.058273
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Baby Betta
+FIELD COORDINATES: 13.106016, 77.058273
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Badami
+FIELD COORDINATES: 15.913335, 75.685090
+MONTH: Jan
+PROOF: (Y1, Livestock Fair Area, 0:30 ,https://www.google.com/maps/@15.913335,75.685090,847m/data=!3m1!1e3!4m6!1m2!2s15.913335!3d75.685090!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Badavanahalli
+FIELD COORDINATES: 13.106016, 77.058273
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Bagalkote
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Bairisiddeswara cattle fair
+FIELD COORDINATES: 13.106016, 77.058273
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Banashankari fair
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Bankapura
+FIELD COORDINATES: 13.094863, 77.090038
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Bannur Hemadri
+FIELD COORDINATES: 13.257809, 76.478368
+MONTH: Jan
+PROOF: (Y1, Unnamed Marketplace, 0:30 ,https://www.google.com/maps/@13.257809,76.478368,847m/data=!3m1!1e3!4m6!1m2!2s13.257809!3d76.478368!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Basavanagudi cattle fair
+FIELD COORDINATES: 13.321420, 76.939077
+MONTH: Jan
+PROOF: (Y1, Unnamed Parking, 0:30 ,https://www.google.com/maps/@13.321420,76.939077,847m/data=!3m1!1e3!4m6!1m2!2s13.321420!3d76.939077!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Bettadapura cattle fair
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Bhooka
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Chadchan
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Chelur
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Chunchanakatte
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: DN Doddi
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Doornahalli Bull fair
+FIELD COORDINATES: 13.257809, 76.478368
+MONTH: Jan
+PROOF: (Y1, Unnamed Marketplace, 0:30 ,https://www.google.com/maps/@13.257809,76.478368,847m/data=!3m1!1e3!4m6!1m2!2s13.257809!3d76.478368!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Ghati Subramanya Jatre
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Gulevu Bellari
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Gutte Mahimapura
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Livestock Fair Area, 0:30 ,https://www.google.com/maps/@13.139476,76.962979,847m/data=!3m1!1e3!4m6!1m2!2s13.139476!3d76.962979!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Hassan Cattle Fair
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Hayalla Lingeshwara
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Hemagiri
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Horti cattle fair at Vijayapura district
+FIELD COORDINATES: 13.094863, 77.090038
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Karehalli (Chikkanayakanahalli) Ranganatha swamy
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Kengal Anjaneya Swamy
+FIELD COORDINATES: 13.094863, 77.090038
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Kotagal cattle fair
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Kukkuvadeshwari Ammana Jatre
+FIELD COORDINATES: 13.106016, 77.058273
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Kyamenahalli
+FIELD COORDINATES: 13.106016, 77.058273
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Maddur 
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Madhugiri
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Magadi
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Mudukothore
+FIELD COORDINATES: 13.321420, 76.939077
+MONTH: Jan
+PROOF: (Y1, Unnamed Parking, 0:30 ,https://www.google.com/maps/@13.321420,76.939077,847m/data=!3m1!1e3!4m6!1m2!2s13.321420!3d76.939077!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Pandarapur
+FIELD COORDINATES: 13.257809, 76.478368
+MONTH: Jan
+PROOF: (Y1, Unnamed Marketplace, 0:30 ,https://www.google.com/maps/@13.257809,76.478368,847m/data=!3m1!1e3!4m6!1m2!2s13.257809!3d76.478368!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Viduraswatha
+FIELD COORDINATES: 13.257809, 76.478368
+MONTH: Jan
+PROOF: (Y1, Unnamed Marketplace, 0:30 ,https://www.google.com/maps/@13.257809,76.478368,847m/data=!3m1!1e3!4m6!1m2!2s13.257809!3d76.478368!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Sapalamma cattle fair (Thoranahalli)
+FIELD COORDINATES: 13.005639, 77.344157
+MONTH: Jan
+PROOF: (Y1, Unnamed Parking, 0:30 ,https://www.google.com/maps/@13.009735,77.551565,847m/data=!3m1!1e3!4m6!1m2!2s13.009735!3d77.551565!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Sharanabasaveshwara (Yadgir)
+FIELD COORDINATES: 16.770000, 77.120000
+MONTH: Jan
+PROOF: (Y1, Unnamed Parking, 0:30 ,https://www.google.com/maps/@17.180819,77.285674,847m/data=!3m1!1e3!4m6!1m2!2s17.180819!3d77.285674!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Siddaganga
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Sidilu Mallikarjuna (periyapatna)
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Sri Adi Shakti Seehali Huchamma (B. Seehalli)
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Sugganahalli
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Livestock Fair Area, 0:30 ,https://www.google.com/maps/@13.139476,76.962979,847m/data=!3m1!1e3!4m6!1m2!2s13.139476!3d76.962979!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Suttur
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Talakayabetta Cattle Fair
+FIELD COORDINATES: 13.072557, 77.153568
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Udachan
+FIELD COORDINATES: 13.139476, 76.962979
+MONTH: Jan
+PROOF: (Y1, Monday Bazar, 0:30 ,https://www.google.com/maps/@13.310398,76.943364,847m/data=!3m1!1e3!4m6!1m2!2s13.310398!3d76.943364!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
+FAIR: Ayyanagudi
+FIELD COORDINATES: 13.094863, 77.090038
+MONTH: Jan
+PROOF: (Y1, Mini market, 0:30 ,https://www.google.com/maps/@13.313069,77.114760,847m/data=!3m1!1e3!4m6!1m2!2s13.313069!3d77.114760!2m1!1e0)
+OBJECTS DETECTED: ['backpack', 'sheep', 'cow', 'car', 'person', 'boat', 'bus', 'truck', 'horse', 'umbrella', 'sports ball', 'motorcycle']
+--------------------------------------------------
+
