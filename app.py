@@ -73,7 +73,12 @@ st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # ── Load data ──
 try:
-    df = pd.read_csv("cattle_fairs.csv", quotechar='"', skipinitialspace=True)
+    import os
+    if os.path.exists("cattle_fairs_updated.csv"):
+        df = pd.read_csv("cattle_fairs_updated.csv", quotechar='"', skipinitialspace=True)
+    else:
+        df = pd.read_csv("cattle_fairs.csv", quotechar='"', skipinitialspace=True)
+        
     # Clean the data - ensure fair names are strings and not URLs
     df['Name or Place'] = df['Name or Place'].astype(str)
     # Remove any rows where Name or Place looks like a URL

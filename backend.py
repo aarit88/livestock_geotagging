@@ -22,10 +22,18 @@ model = YOLO("yolov8s.pt")
 # ----------------------------------
 
 def download_video(url):
+    import os
+    if os.path.exists("video.mp4"):
+        try:
+            os.remove("video.mp4")
+        except:
+            pass
+            
     ydl_opts = {
         "format": "best",
         "quiet": True,
-        "outtmpl": "video.mp4"
+        "outtmpl": "video.mp4",
+        "overwrites": True
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         return ydl.extract_info(url, download=True)
@@ -184,13 +192,8 @@ def predict_location(objects, base_lat=None, base_lon=None, fair_name=""):
     # refers to landmarks directly in the vicinity of the coordinates.
     landmarks = unique_candidates[:3]
 
-    # Set latitude and longitude to the first detected landmark's coordinates
-    # to ensure the coordinates point exactly to a localized proof of location.
-    if landmarks:
-        final_lat = landmarks[0]["lat"]
-        final_lon = landmarks[0]["lon"]
-    else:
-        final_lat = center_lat
-        final_lon = center_lon
+    # Retain exactly the center_lat and center_lon so the original location doesn't shift
+    final_lat = center_lat
+    final_lon = center_lon
 
     return final_lat, final_lon, landmarks
